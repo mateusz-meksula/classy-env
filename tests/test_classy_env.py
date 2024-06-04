@@ -86,7 +86,7 @@ def test_raises_error_when_instantiates_invalid_class():
         NotPresentSettings()
 
     assert (
-        "Could not find the following environment variables:\n\t'TEST1'\n\t'TEST2'"
+        "Cannot find the following environment variables:\n\t'TEST1'\n\t'TEST2'"
         == e.value.args[0]
     )
 
@@ -95,7 +95,7 @@ def test_raises_error_when_accessing_invalid_class_attribute():
     with pytest.raises(errors.EnvVarNotFoundError) as e:
         NotPresentSettings.test_env1
 
-    assert "Could not find the 'TEST1' environment variable" == e.value.args[0]
+    assert "Cannot find the 'TEST1' environment variable" == e.value.args[0]
 
 
 def test_cannot_instantiate_settings_with_doubled_envvars():

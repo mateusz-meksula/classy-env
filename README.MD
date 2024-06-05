@@ -2,15 +2,15 @@
 
 ## About
 
-Classy Env is a lightweight python package for managing environment variables in OOP way.
+Classy Env is a lightweight Python package for managing environment variables in an OOP way.
 
 ## Requirements
 
-This package requires python >= 3.11
+This package requires Python 3.11 or higher.
 
 ## Installation
 
-Classy Env is available on pip and can be installed by running the following command:
+Classy Env is available on PyPI and can be installed by running the following command:
 
 ```shell
 pip install classy-env
@@ -18,7 +18,7 @@ pip install classy-env
 
 ## Usage
 
-Create a `ClassyEnv` subclass and declare its attributes with `EnvVar` function:
+Create a `ClassyEnv` subclass and declare its attributes using the `EnvVar` function:
 
 ```python
 from classyenv import ClassyEnv, EnvVar
@@ -30,9 +30,11 @@ class Settings(ClassyEnv):
     api_secret_key = EnvVar("SECRET_KEY")
 ```
 
-`EnvVar` function takes a name of the environment variable as an argument. Value of that variable will be assigned to the corresponding attribute.
+The `EnvVar` function takes the name of the environment variable as an argument.
+The Value of that variable will be assigned to the corresponding attribute.
 
-Then, create an object of your subclass and access environment variables by object attributes:
+Then, create an object of your subclass and access the environment variables
+through the object's attributes:
 
 ```python
 settings = Settings()
@@ -43,18 +45,18 @@ database_connection = connect(
 )
 ```
 
-Note! TODO make an MD note
-At the object's creation, classy env will perform checks if environment variables provided to `EnvVar` functions are set. If not, an exception will be raised.
+At the object's creation, Classy Env will check if the environment variables
+provided to the `EnvVar` functions are defined. If not, an exception will be raised.
 
 ### Mutating the `ClassyEnv` instances and subclasses
 
-At this moment, mutating the instances of `ClassyEnv` class is not supported:
+At this moment, mutating instances of the `ClassyEnv` class is not supported:
 
 ```python
 settings.database_user = "Roe_Jogan123" # this will raise an exception
 ```
 
-Same with mutating the class attributes of `ClassyEnv` subclasses:
+Similarly, mutating the class attributes of the `ClassyEnv` subclasses is not supported:
 
 ```python
 Settings.database_user = "Roe_Jogan123" # this will raise an exception

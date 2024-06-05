@@ -1,6 +1,6 @@
 # Classy Env
 
-![Tests](https://github.com/mateusz-meksula/classy-env/actions/workflows/tests.yaml/badge.svg)
+![Tests](https://github.com/mateusz-meksula/classy-env/actions/workflows/tests.yaml/badge.svg) [![](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 
 ## About
 

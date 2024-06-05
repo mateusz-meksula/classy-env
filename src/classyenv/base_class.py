@@ -14,7 +14,7 @@ class ClassyEnvMeta(type):
     def __setattr__(cls, name: str, value: Any) -> None:
         for attr_name, attr in cls.__dict__.items():
             if isinstance(attr, _EnvVar) and attr_name == name:
-                raise AttributeMutabilityError(attr_name, attr.envvar_name)
+                raise AttributeMutabilityError(attr_name)
 
         return super().__setattr__(name, value)
 

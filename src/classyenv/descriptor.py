@@ -23,7 +23,7 @@ class _EnvVar:
             raise EnvVarNotFoundError(self.envvar_name)
 
     def __set__(self, obj, value: str):
-        raise AttributeMutabilityError(self.attr_name, self.envvar_name)
+        raise AttributeMutabilityError(self.attr_name)
 
 
 @overload

@@ -49,10 +49,7 @@ def test_cannot_mutate_class_attr():
     with pytest.raises(errors.AttributeMutabilityError) as e:
         Settings.foo = "TEST"
 
-    assert (
-        "Cannot set 'foo' attribute. This attribute corresponds to a 'FOO' environment variable"
-        == e.value.args[0]
-    )
+    assert "Cannot change the value of the 'foo' attribute" == e.value.args[0]
 
 
 def test_cannot_mutate_attr():
@@ -61,24 +58,21 @@ def test_cannot_mutate_attr():
     with pytest.raises(errors.AttributeMutabilityError) as e:
         obj.foo = "TEST"
 
-    assert (
-        "Cannot set 'foo' attribute. This attribute corresponds to a 'FOO' environment variable"
-        == e.value.args[0]
-    )
+    assert "Cannot change the value of the 'foo' attribute" == e.value.args[0]
 
 
 def test_cannot_pass_non_string_envvar_name():
     with pytest.raises(errors.EnvVarNameTypeError) as e:
         EnvVar(123)  # type: ignore
 
-    assert "Invalid type <class 'int'>, expected type: 'str'" == e.value.args[0]
+    assert "Invalid type: <class 'int'>, expected type: 'str'" == e.value.args[0]
 
 
 def test_cannot_pass_empty_string_envvar_name():
     with pytest.raises(errors.EnvVarNameEmptyError) as e:
         EnvVar("")
 
-    assert "Cannot set empty string as environment variable" == e.value.args[0]
+    assert "Invalid environment variable name: empty string" == e.value.args[0]
 
 
 def test_raises_error_when_instantiates_invalid_class():
@@ -86,7 +80,7 @@ def test_raises_error_when_instantiates_invalid_class():
         NotPresentSettings()
 
     assert (
-        "Cannot find the following environment variables:\n\t'TEST1'\n\t'TEST2'"
+        "Couldn't find the following environment variables:\n\t'TEST1'\n\t'TEST2'"
         == e.value.args[0]
     )
 
@@ -95,7 +89,7 @@ def test_raises_error_when_accessing_invalid_class_attribute():
     with pytest.raises(errors.EnvVarNotFoundError) as e:
         NotPresentSettings.test_env1
 
-    assert "Cannot find the 'TEST1' environment variable" == e.value.args[0]
+    assert "Couldn't find the 'TEST1' environment variable" == e.value.args[0]
 
 
 def test_cannot_instantiate_settings_with_doubled_envvars():
@@ -122,4 +116,7 @@ def test_cannot_instantiate_classy_env_class():
     with pytest.raises(errors.ClassyEnvClassInstantiatedError) as e:
         ClassyEnv()
 
-    assert "Cannot instantiate object of 'ClassyEnv' class" == e.value.args[0]
+    assert (
+        "The 'ClassyEnv' class is designed to be subclassed and cannot be instantiated directly."
+        == e.value.args[0]
+    )

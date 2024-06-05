@@ -1,5 +1,7 @@
 # Classy Env
 
+![Tests](https://github.com/mateusz-meksula/classy-env/actions/workflows/tests.yaml/badge.svg)
+
 ## About
 
 Classy Env is a lightweight Python package for managing environment variables in an OOP way.

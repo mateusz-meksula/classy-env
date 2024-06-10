@@ -25,7 +25,6 @@ Create a `ClassyEnv` subclass and declare its attributes using the `EnvVar` func
 ```python
 from classyenv import ClassyEnv, EnvVar
 
-
 class Settings(ClassyEnv):
     database_user = EnvVar("DB_USER")
     database_password = EnvVar("DB_PASSWORD")
@@ -49,6 +48,17 @@ database_connection = connect(
 
 At the object's creation, Classy Env will check if the environment variables
 provided to the `EnvVar` functions are defined. If not, an exception will be raised.
+
+This validation can also be triggered at class creation using the `runtime_check` class argument:
+
+```python
+from classyenv import ClassyEnv, EnvVar
+
+class Settings(ClassyEnv, runtime_check=True):
+    database_user = EnvVar("DB_USER")
+    database_password = EnvVar("DB_PASSWORD")
+    api_secret_key = EnvVar("SECRET_KEY")
+```
 
 ### Mutating the `ClassyEnv` instances and subclasses
 

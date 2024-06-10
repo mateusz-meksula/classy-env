@@ -37,9 +37,22 @@ class ClassyEnv(metaclass=ClassyEnvMeta):
 
     """
 
+    def __init_subclass__(cls, runtime_check: bool | None = None) -> None:
+        if runtime_check:
+            cls._validate()
+
     def __new__(cls) -> Self:
         if cls is ClassyEnv:
             raise ClassyEnvClassInstantiatedError
+
+        cls._validate()
+
+        return super().__new__(cls)
+
+    @classmethod
+    def _validate(cls) -> None:
+        if getattr(cls, "is_validated", False):
+            return
 
         declared_envvars = []
         missing_envvars = []
@@ -75,4 +88,4 @@ class ClassyEnv(metaclass=ClassyEnvMeta):
         if missing_envvars:
             raise EnvVarsNotFoundError(missing_envvars)
 
-        return super().__new__(cls)
+        cls.is_validated = True

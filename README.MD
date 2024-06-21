@@ -60,6 +60,26 @@ class Settings(ClassyEnv, runtime_check=True):
     api_secret_key = EnvVar("SECRET_KEY")
 ```
 
+### Converters
+
+> added in version 1.2.0
+
+The `EnvVar` function accepts an optional `converter` argument.
+Converter must be a callable that accepts a string value.
+
+If provided, converter will be called with the environment variable value when the attribute is being accessed, and the returned by converter value will be returned as attribute value:
+
+```python
+from classyenv import ClassyEnv, EnvVar
+
+class Settings(ClassyEnv):
+    database_port: int = EnvVar("DB_PORT", converter=int)
+
+
+settings = Settings()
+assert isinstance(settings.database_port, int)
+```
+
 ### Mutating the `ClassyEnv` instances and subclasses
 
 At this moment, mutating instances of the `ClassyEnv` class is not supported:

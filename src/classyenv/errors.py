@@ -51,5 +51,5 @@ class RepeatedEnvVarsError(ClassyEnvError, ValueError):
 
 class NonCallableConverterError(ClassyEnvError, ValueError):
     def __init__(self) -> None:
-        message = f"Provided converter is not callable"
+        message = "Provided converter is not callable"
         super().__init__(message)

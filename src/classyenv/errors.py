@@ -47,3 +47,9 @@ class RepeatedEnvVarsError(ClassyEnvError, ValueError):
         message = "The following environment variables were declared more than once:\n"
         message += "\n".join(f"\t{envvar!r}" for envvar in repeated_envvars)
         super().__init__(message)
+
+
+class NonCallableConverterError(ClassyEnvError, ValueError):
+    def __init__(self) -> None:
+        message = f"Provided converter is not callable"
+        super().__init__(message)

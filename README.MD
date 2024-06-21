@@ -49,7 +49,11 @@ database_connection = connect(
 At the object's creation, Classy Env will check if the environment variables
 provided to the `EnvVar` functions are defined. If not, an exception will be raised.
 
-This validation can also be triggered at class creation using the `runtime_check` class argument:
+### Runtime validation
+
+> added in version 1.1.0
+
+The validation mentioned above can also be triggered at class creation using the `runtime_check` class argument:
 
 ```python
 from classyenv import ClassyEnv, EnvVar

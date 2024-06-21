@@ -3,6 +3,6 @@
 from .base_class import ClassyEnv
 from .descriptor import EnvVar
 
-__version__ = "1.2.0"
+__version__ = "1.2.1"
 
 __all__ = ["EnvVar", "ClassyEnv"]

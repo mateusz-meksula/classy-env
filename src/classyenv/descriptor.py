@@ -1,5 +1,5 @@
 import os
-from typing import Any, Callable, Literal, NoReturn, TypeAlias, overload
+from typing import Any, Callable, TypeAlias
 
 from .errors import (
     AttributeMutabilityError,
@@ -11,11 +11,16 @@ from .errors import (
 
 ConverterType: TypeAlias = Callable[[str], Any]
 
+_DEFAULT = object()
+
 
 class _EnvVar:
-    def __init__(self, envvar_name: str, converter: ConverterType | None) -> None:
+    def __init__(
+        self, envvar_name: str, converter: ConverterType | None, default: Any
+    ) -> None:
         self.envvar_name = envvar_name
         self.converter = converter
+        self.default = default
 
     def __set_name__(self, owner, name) -> None:
         self.attr_name = name
@@ -24,6 +29,8 @@ class _EnvVar:
         try:
             env_val = os.environ[self.envvar_name]
         except KeyError:
+            if self.default is not _DEFAULT:
+                return self.default
             raise EnvVarNotFoundError(self.envvar_name)
 
         if not self.converter:
@@ -35,15 +42,9 @@ class _EnvVar:
         raise AttributeMutabilityError(self.attr_name)
 
 
-@overload
 def EnvVar(
-    envvar_name: Literal[""], *, converter: ConverterType | None = None
-) -> NoReturn: ...
-@overload
-def EnvVar(envvar_name: str, *, converter: ConverterType | None = None) -> Any: ...
-
-
-def EnvVar(envvar_name, *, converter=None):
+    envvar_name: str, *, converter: ConverterType | None = None, default: Any = _DEFAULT
+):
     """
     Function intended to be used as a default value for class
     attributes in classes that inherit from `ClassyEnv` class.
@@ -69,4 +70,4 @@ def EnvVar(envvar_name, *, converter=None):
     if converter and not callable(converter):
         raise NonCallableConverterError
 
-    return _EnvVar(envvar_name, converter)
+    return _EnvVar(envvar_name, converter, default)

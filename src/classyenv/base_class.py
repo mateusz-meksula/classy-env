@@ -1,7 +1,7 @@
 import os
 from typing import Any, Self
 
-from .descriptor import _EnvVar
+from .descriptor import _DEFAULT, _EnvVar
 from .errors import (
     AttributeMutabilityError,
     ClassyEnvClassInstantiatedError,
@@ -63,6 +63,9 @@ class ClassyEnv(metaclass=ClassyEnvMeta):
                 try:
                     os.environ[attr.envvar_name]
                 except KeyError:
+                    if attr.default is not _DEFAULT:
+                        continue
+
                     if attr.envvar_name not in missing_envvars:
                         missing_envvars.append(attr.envvar_name)
 

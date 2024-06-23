@@ -84,6 +84,27 @@ settings = Settings()
 assert isinstance(settings.database_port, int)
 ```
 
+### Defaults
+
+> added in version 1.3.0
+
+The `EnvVar` function accepts an optional `default` argument, which allows for specifying a default value, when corresponding environment variable is not defined:
+
+```python
+import os
+from classyenv import ClassyEnv, EnvVar
+
+if "DB_PORT" in os.environ:
+    os.environ.pop("DB_PORT")
+
+class Settings(ClassyEnv):
+    database_port = EnvVar("DB_PORT", default=3306)
+
+
+settings = Settings()
+assert settings.database_port == 3306
+```
+
 ### Mutating the `ClassyEnv` instances and subclasses
 
 At this moment, mutating instances of the `ClassyEnv` class is not supported:

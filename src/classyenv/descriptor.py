@@ -44,7 +44,7 @@ class _EnvVar:
 
 def EnvVar(
     envvar_name: str, *, converter: ConverterType | None = None, default: Any = _DEFAULT
-):
+) -> Any:
     """
     Function intended to be used as a default value for class
     attributes in classes that inherit from `ClassyEnv` class.
